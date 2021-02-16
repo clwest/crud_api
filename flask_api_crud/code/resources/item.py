@@ -4,7 +4,6 @@ from models.item import ItemModel
 
 class Item(Resource):
     parser = reqparse.RequestParser()
-
     parser.add_argument('price', 
         type=float,
         required=True,
@@ -64,4 +63,4 @@ class Item(Resource):
         
 class ItemList(Resource):
     def get(self):
-        return {'items': list(map(lambda x: x.json(), ItemModel.query.all()))}
+        return {'items': [item.json() for item in ItemModel.find_all()]}
